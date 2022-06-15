@@ -1,0 +1,18 @@
+<canvas #myCanvas id="canvas" tabindex="1" style="border: 5px solid" width="600" height="300"></canvas>
+
+<div>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <div *ngFor="let score of scores">
+                <div *ngIf="score.name">
+                    <td>{{score.name}}</td> <td>{{score.score}}</td>
+
+                </div>
+            </div>
+        </tr>
+    </table>
+</div>
