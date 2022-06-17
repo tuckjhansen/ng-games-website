@@ -11,7 +11,7 @@ export class BounceUpComponent implements OnInit {
   public raf: any;
   public score = 0;
   public started = false;
-  public timeLeft = 7;
+  public timeLeft = 90;
   public pause = false;
   public highScore = 0;
   public highestScore: number | undefined;
