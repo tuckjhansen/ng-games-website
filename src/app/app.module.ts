@@ -15,6 +15,7 @@ import { CanvasHomeComponent } from './canvas/canvas-home/canvas-home.component'
 import { BounceUpComponent } from './bounce-up/bounce-up.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
 
 const firebaseConfig = {
   apiKey: "AIzaSyATJiJTJhtu1_5vYv1_FxrroYPhap8w0nM",
@@ -42,6 +43,7 @@ const firebaseConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),
   ],
