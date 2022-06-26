@@ -1,6 +1,8 @@
 <input [(ngModel)]="name" />
 
-<canvas #myCanvas id="canvas" tabindex="1" style="border: 5px solid" width="600" height="300"></canvas>
+<div class="line-break">
+    <canvas #myCanvas id="canvas" tabindex="1" style="border: 5px solid" width="600" height="300"></canvas>
+</div>
 
 <div>
     <table>
@@ -11,7 +13,8 @@
         <tr>
             <div *ngFor="let score of scores">
                 <div *ngIf="score.name">
-                    <td>{{score.name}}</td> <td>{{score.score}}</td>
+                    <td>{{score.name}}</td>
+                    <td>{{score.score}}</td>
 
                 </div>
             </div>
