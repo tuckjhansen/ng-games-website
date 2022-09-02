@@ -1,4 +1,7 @@
+<label for="name">Name:</label>
 <input [(ngModel)]="name" />
+<p class="attention">WARNING. Do not input a name that is not your name. If this happens the name and score will be
+    deleted</p>
 
 <div class="line-break">
     <canvas #myCanvas id="canvas" tabindex="1" style="border: 5px solid" width="600" height="300"></canvas>
@@ -6,18 +9,21 @@
 
 <div>
     <table>
-        <tr>
-            <th>Name</th>
-            <th>Score</th>
-        </tr>
-        <tr>
-            <div *ngFor="let score of scores">
-                <div *ngIf="score.name">
-                    <td>{{score.name}}</td>
-                    <td>{{score.score}}</td>
+        <thead>
 
-                </div>
-            </div>
-        </tr>
+            <tr>
+                <th>Name</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let score of scores">
+                    <ng-container *ngIf="score.name">
+                        <td>{{score.name}}</td>
+                        <td>{{score.score}}</td>
+
+                    </ng-container>
+            </tr>
+        </tbody>
     </table>
 </div>

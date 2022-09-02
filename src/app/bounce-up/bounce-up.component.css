@@ -1,3 +1,16 @@
 td {
-    border-right: 1px solid;
+    /* border-right: 1px solid; */ 
+    text-align: left;
+}
+
+.attention {
+    color: firebrick;
+    font-size: 20px;
+    text-align: left;
+}
+label {
+    font-size: 20px;
+}
+input {
+    color: black;
 }

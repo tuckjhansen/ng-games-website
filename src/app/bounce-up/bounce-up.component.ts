@@ -142,14 +142,8 @@ export class BounceUpComponent implements OnInit {
         score: this.highScore,
         createDate: new Date()
       });
-      // await this.firestore.
-
-      // await this.highScoresCollection.add({
-      //   name: document.getElementById('name').value,
-      //   score: highScore,
-      //   createDate: new Date()
-      // });
     }
+
     // minus one to score && (ball.y <= 20 && ball.x === bouncer.x)
     if (this.ball.y >= this.bouncer.y && (this.ball.x > this.bouncer.x && this.ball.x < this.bouncer.x + this.bouncer.w)) {
       this.score += 1;
