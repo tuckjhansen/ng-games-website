@@ -16,6 +16,9 @@ import { BounceUpComponent } from './bounce-up/bounce-up.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { FormsModule } from '@angular/forms';
+import { UnityComponent } from './unity/unity.component';
+import { UnityhomeComponent } from './unity/unityhome/unityhome.component';
+import { SlimemageComponent } from './slimemage/slimemage.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyATJiJTJhtu1_5vYv1_FxrroYPhap8w0nM",
@@ -38,7 +41,10 @@ const firebaseConfig = {
     HourglassComponent,
     CodeOrgHomeComponent,
     CanvasHomeComponent,
-    BounceUpComponent
+    BounceUpComponent,
+    UnityComponent,
+    UnityhomeComponent,
+    SlimemageComponent
   ],
   imports: [
     BrowserModule,

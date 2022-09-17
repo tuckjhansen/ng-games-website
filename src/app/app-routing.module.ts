@@ -9,6 +9,10 @@ import { SlothComponent } from "./sloth/sloth.component";
 import { SpacePirateHuntersComponent } from "./space-pirate-hunters/space-pirate-hunters.component";
 import { CanvasHomeComponent } from "./canvas/canvas-home/canvas-home.component";
 import { BounceUpComponent } from "./bounce-up/bounce-up.component";
+import { UnityComponent } from "./unity/unity.component";
+import { UnityhomeComponent } from "./unity/unityhome/unityhome.component";
+import { SlimemageComponent } from "./slimemage/slimemage.component";
+
 
 const routes: Routes = [
     {
@@ -54,6 +58,21 @@ const routes: Routes = [
                 path: 'bounce-up',
                 component: BounceUpComponent
             }
+        ]
+    },
+    {
+        path: 'unity',
+        component: UnityComponent,
+        children: [
+            {
+                path: 'home',
+                component: UnityhomeComponent
+            },
+            {
+                path: 'slime-mage',
+                component: SlimemageComponent
+            }
+            
         ]
     }
 ];
