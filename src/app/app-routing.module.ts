@@ -83,3 +83,17 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+
+        /*if (Enemy1.enabled && !Enemy2.enabled && !Enemy3.enabled && !Enemy4.enabled && !Enemy4.enabled
+             && !Enemy5.enabled && !Enemy6.enabled && !Enemy7.enabled && !Enemy8.enabled && !Enemy9.enabled && !Enemy10.enabled
+              && !Enemy11.enabled && !Enemy12.enabled && !Enemy13.enabled && !Enemy14.enabled && !Enemy15.enabled && !Enemy16.enabled && !Enemy17.enabled && !Enemy18.enabled && !Enemy19.enabled == false
+               && !Enemy20.enabled && !Enemy21.enabled && !Enemy22.enabled)
+        {
+            TarrSpikeDoor1.gravityScale = -1;
+            TarrSpikeDoor2.gravityScale = -1;
+            Round1Collider.enabled = true;
+            Round2Collider.enabled = true;
+            ThoseRainbows.enabled = false;
+            AncientRuins.enabled = true;
+        }*/
