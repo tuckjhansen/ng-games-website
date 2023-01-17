@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { UnityComponent } from './unity/unity.component';
 import { UnityhomeComponent } from './unity/unityhome/unityhome.component';
 import { SlimemageComponent } from './slimemage/slimemage.component';
+import { UnitySpacePirateHuntersComponent } from './unity-space-pirate-hunters/unity-space-pirate-hunters.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyATJiJTJhtu1_5vYv1_FxrroYPhap8w0nM",
@@ -44,7 +45,8 @@ const firebaseConfig = {
     BounceUpComponent,
     UnityComponent,
     UnityhomeComponent,
-    SlimemageComponent
+    SlimemageComponent,
+    UnitySpacePirateHuntersComponent
   ],
   imports: [
     BrowserModule,

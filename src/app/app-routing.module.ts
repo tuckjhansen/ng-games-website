@@ -12,7 +12,7 @@ import { BounceUpComponent } from "./bounce-up/bounce-up.component";
 import { UnityComponent } from "./unity/unity.component";
 import { UnityhomeComponent } from "./unity/unityhome/unityhome.component";
 import { SlimemageComponent } from "./slimemage/slimemage.component";
-
+import { UnitySpacePirateHuntersComponent } from "./unity-space-pirate-hunters/unity-space-pirate-hunters.component";   
 
 const routes: Routes = [
     {
@@ -71,8 +71,11 @@ const routes: Routes = [
             {
                 path: 'slime-mage',
                 component: SlimemageComponent
+            },
+            {
+                path: 'space-pirate-hunters-unity',
+                component: UnitySpacePirateHuntersComponent
             }
-            
         ]
     }
 ];
