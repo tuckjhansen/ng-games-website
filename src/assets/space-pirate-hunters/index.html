@@ -56,15 +56,15 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/SpacePirateHuntersUNEBuild.loader.js";
+      var loaderUrl = buildUrl + "/SpacePirateHuntersBuild.loader.js";
       var config = {
-        dataUrl: buildUrl + "/SpacePirateHuntersUNEBuild.data",
-        frameworkUrl: buildUrl + "/SpacePirateHuntersUNEBuild.framework.js",
-        codeUrl: buildUrl + "/SpacePirateHuntersUNEBuild.wasm",
+        dataUrl: buildUrl + "/SpacePirateHuntersBuild.data",
+        frameworkUrl: buildUrl + "/SpacePirateHuntersBuild.framework.js",
+        codeUrl: buildUrl + "/SpacePirateHuntersBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "SlimeMaster Productions",
         productName: "Space Pirate Hunters UNE",
-        productVersion: "1.0",
+        productVersion: "1.2",
         showBanner: unityShowBanner,
       };
 
@@ -83,13 +83,11 @@
         meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
         document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
 
         // To lower canvas resolution on mobile devices to gain some
         // performance, uncomment the following line:
         // config.devicePixelRatio = 1;
-
-        canvas.style.width = window.innerWidth + 'px';
-        canvas.style.height = window.innerHeight + 'px';
 
         unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
