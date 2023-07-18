@@ -3,13 +3,13 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Space Pirate Hunters UNE</title>
+    <title>Space Pirate Hunters</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <canvas id="unity-canvas" width=960 height=540></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
@@ -18,9 +18,7 @@
       </div>
       <div id="unity-warning"> </div>
       <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Space Pirate Hunters UNE</div>
       </div>
     </div>
     <script>
@@ -62,9 +60,9 @@
         frameworkUrl: buildUrl + "/SpacePirateHuntersBuild.framework.js",
         codeUrl: buildUrl + "/SpacePirateHuntersBuild.wasm",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "SlimeMaster Productions",
+        companyName: "Typical Games",
         productName: "Space Pirate Hunters UNE",
-        productVersion: "1.2",
+        productVersion: "1.35",
         showBanner: unityShowBanner,
       };
 
@@ -93,8 +91,8 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+        canvas.style.width = "1440px";
+        canvas.style.height = "810px";
       }
 
       loadingBar.style.display = "block";

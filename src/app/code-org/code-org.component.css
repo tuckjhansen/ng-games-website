@@ -5,6 +5,8 @@ a.current-page {
     padding: 5px;
     background-color: navy;
     margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 a:not(.current-page) {
@@ -13,6 +15,8 @@ a:not(.current-page) {
     font-size: 20px;
     padding: 5px;
     margin-bottom: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 h1 {
     text-align: center;
