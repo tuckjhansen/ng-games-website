@@ -20,6 +20,9 @@ import { UnityComponent } from './unity/unity.component';
 import { UnityhomeComponent } from './unity/unityhome/unityhome.component';
 import { SlimemageComponent } from './slimemage/slimemage.component';
 import { UnitySpacePirateHuntersComponent } from './unity-space-pirate-hunters/unity-space-pirate-hunters.component';
+import { GametestComponent } from './gametest/gametest.component';
+import { DungeoncrawlerComponent } from './dungeoncrawler/dungeoncrawler.component';
+import { LastdysonComponent } from './lastdyson/lastdyson.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyATJiJTJhtu1_5vYv1_FxrroYPhap8w0nM",
@@ -46,7 +49,10 @@ const firebaseConfig = {
     UnityComponent,
     UnityhomeComponent,
     SlimemageComponent,
-    UnitySpacePirateHuntersComponent
+    UnitySpacePirateHuntersComponent,
+    GametestComponent,
+    DungeoncrawlerComponent,
+    LastdysonComponent
   ],
   imports: [
     BrowserModule,

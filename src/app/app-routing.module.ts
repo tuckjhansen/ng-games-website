@@ -1,4 +1,4 @@
-import { Component, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CanvasComponent } from "./canvas/canvas.component";
 import { CodeOrgHomeComponent } from "./code-org/code-org-home/code-org-home.component";
@@ -13,6 +13,9 @@ import { UnityComponent } from "./unity/unity.component";
 import { UnityhomeComponent } from "./unity/unityhome/unityhome.component";
 import { SlimemageComponent } from "./slimemage/slimemage.component";
 import { UnitySpacePirateHuntersComponent } from "./unity-space-pirate-hunters/unity-space-pirate-hunters.component";   
+import { GametestComponent } from "./gametest/gametest.component";
+import { DungeoncrawlerComponent } from "./dungeoncrawler/dungeoncrawler.component";
+import { LastdysonComponent } from "./lastdyson/lastdyson.component";
 
 const routes: Routes = [
     {
@@ -75,8 +78,21 @@ const routes: Routes = [
             {
                 path: 'space-pirate-hunters-unity',
                 component: UnitySpacePirateHuntersComponent
+            },
+            {
+                path: 'lastdyson',
+                component: LastdysonComponent
+            },
+            {
+                path: 'dungeoncrawler',
+                component: DungeoncrawlerComponent
             }
         ]
+    },
+    {
+        path: 'gametest-19508',
+        component: GametestComponent,
+        
     }
 ];
 
@@ -86,17 +102,3 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
-
-
-        /*if (Enemy1.enabled && !Enemy2.enabled && !Enemy3.enabled && !Enemy4.enabled && !Enemy4.enabled
-             && !Enemy5.enabled && !Enemy6.enabled && !Enemy7.enabled && !Enemy8.enabled && !Enemy9.enabled && !Enemy10.enabled
-              && !Enemy11.enabled && !Enemy12.enabled && !Enemy13.enabled && !Enemy14.enabled && !Enemy15.enabled && !Enemy16.enabled && !Enemy17.enabled && !Enemy18.enabled && !Enemy19.enabled == false
-               && !Enemy20.enabled && !Enemy21.enabled && !Enemy22.enabled)
-        {
-            TarrSpikeDoor1.gravityScale = -1;
-            TarrSpikeDoor2.gravityScale = -1;
-            Round1Collider.enabled = true;
-            Round2Collider.enabled = true;
-            ThoseRainbows.enabled = false;
-            AncientRuins.enabled = true;
-        }*/
