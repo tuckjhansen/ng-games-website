@@ -1,20 +1,46 @@
-a.current-page {
-    border-style: solid;
-    color: orange;
-    font-size: 20px;
-    padding: 5px;
-    background-color: navy;
-    margin-bottom: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-a:not(.current-page) {
-    border-style: solid;
-    color: black;
-    font-size: 20px;
-    padding: 5px;
-    margin-bottom: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
+.site-header {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0; /* Ensures that the header starts from the very top of the page */
+    left: 0; /* Ensures that the header starts from the very left side of the page */
+    width: 100%;
+    z-index: 1000;
+}
+
+.navigation ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.navigation li {
+    margin: 0 20px;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #333;
+    font-size: 32px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navigation a:hover {
+    color: #007bff;
+}
+
+/* Fixes potential issues with hr element */
+hr {
+    border: 0; /* Removes default border */
+    height: 2px; /* Sets the height of the hr element */
+    background-color: #333; /* Gives color to the hr, replace with desired color */
+    margin-top: 80px; /* Adjust based on your header's height */
 }

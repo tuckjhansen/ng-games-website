@@ -30,12 +30,14 @@ export class BounceUpComponent implements OnInit {
   constructor(public firestore: Firestore) { }
 
   public ngOnInit(): void {
-    const scoresObservable = collectionData(this.highScoresCollection);
-    scoresObservable.subscribe(scores => {
-      console.log('scores', scores);
-      this.scores = scores.sort(compare);
+    const highScores$ = collectionData(this.highScoresCollection);
+    highScores$.subscribe(fetchedScores => {
+        console.log('Original scores:', JSON.parse(JSON.stringify(fetchedScores)));
+        fetchedScores.sort(compare); // Sort the array in place
+        this.scores = fetchedScores; // Assign sorted array to this.scores
+        console.log('Sorted scores:', this.scores);
     });
-  }
+}
 
   public ngAfterViewInit() {
     console.log('canvas', this.canvas);
@@ -133,7 +135,7 @@ export class BounceUpComponent implements OnInit {
     this.ball.y += this.ball.vy;
 
     // this sends the score, date, and name to firebase
-    if (this.timeLeft <= 0) {
+    if (this.timeLeft <= 0 && this.name !== '') { 
       this.timeLeft = 0;
       this.pause = true;
       this.highScoresCollection
@@ -196,12 +198,23 @@ export class BounceUpComponent implements OnInit {
 }
 
 function compare(a: any, b: any) {
-  if (a.score < b.score) {
-    return 1;
+  // Handle cases where score is missing or undefined
+  const scoreA = a.score ?? -Infinity;
+  const scoreB = b.score ?? -Infinity;
+
+  if (scoreA < scoreB) return 1;
+  if (scoreA > scoreB) return -1;
+
+  // Secondary sort by createDate (if scores are equal)
+  if (a.createDate && b.createDate) {
+    if (a.createDate.seconds < b.createDate.seconds) return 1;
+    if (a.createDate.seconds > b.createDate.seconds) return -1;
+
+    // Further sort by nanoseconds if seconds are also the same
+    if (a.createDate.nanoseconds < b.createDate.nanoseconds) return 1;
+    if (a.createDate.nanoseconds > b.createDate.nanoseconds) return -1;
   }
-  if (a.score > b.score) {
-    return -1;
-  }
+
+  // If both score and createDate are identical, consider them equal
   return 0;
 }
-
