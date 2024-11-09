@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Firestore, collectionData, collection, addDoc, doc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, getDocs } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-bounce-up',
@@ -11,7 +11,8 @@ export class BounceUpComponent implements OnInit {
   public raf: any;
   public score = 0;
   public started = false;
-  public timeLeft = 90;
+  public originalTime: number = 90;
+  public timeLeft: number = 1;
   public pause = false;
   public highScore = 0;
   public highestScore: number | undefined;
@@ -19,32 +20,37 @@ export class BounceUpComponent implements OnInit {
   public goRight = false;
   public name = '';
   public highScoresCollection = collection(this.firestore, 'high-scores');
-  // its important myCanvas matches the variable name in the template
-  @ViewChild('myCanvas', { static: false }) canvas: ElementRef<HTMLCanvasElement> = {} as unknown as ElementRef<HTMLCanvasElement>;
 
+  @ViewChild('myCanvas', { static: false }) canvas: ElementRef<HTMLCanvasElement> = {} as unknown as ElementRef<HTMLCanvasElement>;
   public ctx: CanvasRenderingContext2D | undefined | null;
 
   public ball: any = {};
   public bouncer: any = {};
 
-  constructor(public firestore: Firestore) { }
+  public lastTime = 0;
+  public deltaTime = 0;
 
-  public ngOnInit(): void {
-    const highScores$ = collectionData(this.highScoresCollection);
-    highScores$.subscribe(fetchedScores => {
-        console.log('Original scores:', JSON.parse(JSON.stringify(fetchedScores)));
-        fetchedScores.sort(compare); // Sort the array in place
-        this.scores = fetchedScores; // Assign sorted array to this.scores
-        console.log('Sorted scores:', this.scores);
-    });
-}
+  constructor(public firestore: Firestore) {}
+
+  async ngOnInit() {
+    this.timeLeft = this.originalTime;
+    try {
+      const querySnapshot = await getDocs(this.highScoresCollection);
+      const scores: any[] = [];
+
+      querySnapshot.forEach((doc) => {
+        scores.push({ id: doc.id, ...doc.data() });
+      });
+
+      this.scores = scores.sort(compare);
+    } catch (error) {
+      console.error('Error getting documents: ', error);
+    }
+  }
 
   public ngAfterViewInit() {
-    console.log('canvas', this.canvas);
-    if (!this.canvas) {
-      return;
-    }
-    console.log('after view init');
+    if (!this.canvas) return;
+
     this.ctx = this.canvas.nativeElement.getContext('2d');
     this.ball = {
       x: 100,
@@ -79,13 +85,14 @@ export class BounceUpComponent implements OnInit {
         this.ctx.fill();
       }
     };
+
     setInterval(() => {
       if (this.started) {
         this.timeLeft--;
       }
     }, 1000);
 
-    this.canvas.nativeElement.addEventListener('mouseover' && 'click', (e: any) => {
+    this.canvas.nativeElement.addEventListener('mouseover' && 'click', () => {
       if (!this.started) {
         this.raf = window.requestAnimationFrame(this.draw.bind(this));
         this.started = true;
@@ -93,128 +100,142 @@ export class BounceUpComponent implements OnInit {
     });
 
     this.canvas.nativeElement.addEventListener('keydown', (key: any) => {
-      console.log("keydown", key)
-      if ((key.key === 'ArrowLeft' || key.key === 'a')) {
-        this.goLeft = true;
-      }
-      else if (key.key === 'ArrowRight' || key.key === 'd') {
-        this.goRight = true
-      }
+      if (key.key === 'ArrowLeft' || key.key === 'a') this.goLeft = true;
+      if (key.key === 'ArrowRight' || key.key === 'd') this.goRight = true;
+
+      if (key.key === 'r' && this.pause) this.resetGame();
+
+      // Listen for 'f' key press to toggle fullscreen
+      if (key.key === 'f') this.toggleFullscreen();
     });
 
     this.canvas.nativeElement.addEventListener('keyup', (key: any) => {
-      if (key.key === 'ArrowLeft' || key.key === 'a') {
-        this.goLeft = false;
-      }
-      else if (key.key === 'ArrowRight' || key.key === 'd') {
-        this.goRight = false;
-      }
+      if (key.key === 'ArrowLeft' || key.key === 'a') this.goLeft = false;
+      if (key.key === 'ArrowRight' || key.key === 'd') this.goRight = false;
     });
 
     this.bouncer.draw();
     this.ball.draw();
   }
 
-  public async draw() {
-    if (!this.ctx) {
-      return;
-    }
-    // this stops the game 
+  public async draw(timestamp: number) {
+    if (!this.ctx) return;
+
+    if (this.lastTime === 0) this.lastTime = timestamp;
+    this.deltaTime = (timestamp - this.lastTime) / 1000; // Seconds since last frame
+    this.lastTime = timestamp;
+
     if (this.pause) {
-      this.ctx.fillStyle = 'black'
+      this.ctx.fillStyle = 'black';
       this.ctx.font = '30px serif';
-      this.ctx.fillText("click to restart, in progress", 250, 150, 250);
+      this.ctx.fillText('Press R to Restart', 250, 150, 250);
       return;
     }
-    // frames and movement
+
     this.ctx.fillStyle = 'rgba(127, 255, 0, .3)';
     this.ctx.fillRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+
+    this.ball.x += this.ball.vx * this.deltaTime * 60;
+    this.ball.y += this.ball.vy * this.deltaTime * 60;
+
     this.ball.draw();
     this.bouncer.draw();
-    this.ball.x += this.ball.vx;
-    this.ball.y += this.ball.vy;
 
-    // this sends the score, date, and name to firebase
-    if (this.timeLeft <= 0 && this.name !== '') { 
-      this.timeLeft = 0;
-      this.pause = true;
-      this.highScoresCollection
-      await addDoc(this.highScoresCollection, {
-        name: this.name,
-        score: this.highScore,
-        createDate: new Date()
-      });
-    }
-
-    // minus one to score && (ball.y <= 20 && ball.x === bouncer.x)
     if (this.ball.y >= this.bouncer.y && (this.ball.x > this.bouncer.x && this.ball.x < this.bouncer.x + this.bouncer.w)) {
       this.score += 1;
-      if (this.score >= this.highScore) {
-        this.highScore += 1;
-      }
+      if (this.score >= this.highScore) this.highScore += 1;
       this.ball.vy = -this.ball.vy;
-    }
-    else if (this.ball.y > this.canvas.nativeElement.height) {
+    } else if (this.ball.y > this.canvas.nativeElement.height) {
       this.score -= 1;
     }
 
-    // ceiling and floor collision
     if (this.ball.y > this.canvas.nativeElement.height || this.ball.y < 0) {
       this.ball.vy = -this.ball.vy;
     }
 
-    // bounces the ball of the sides
     if (this.ball.x > this.canvas.nativeElement.width || this.ball.x < 0) {
       this.ball.vx = -this.ball.vx;
     }
 
-    if (this.goLeft) {
-      if (this.bouncer.x >= 0) {
-        this.bouncer.x -= this.bouncer.vx;
-      }
+    if (this.goLeft && this.bouncer.x >= 0) {
+      this.bouncer.x -= this.bouncer.vx * this.deltaTime * 60;
+    } else if (this.goRight && this.bouncer.x + this.bouncer.w <= this.canvas.nativeElement.width) {
+      this.bouncer.x += this.bouncer.vx * this.deltaTime * 60;
     }
-    else if (this.goRight) {
-      if (this.bouncer.x + this.bouncer.w <= this.canvas.nativeElement.width) {
-        this.bouncer.x += this.bouncer.vx;
-      }
-    }
-    this.ctx.fillStyle = 'black'
+
+    this.ctx.fillStyle = 'black';
     this.ctx.font = '30px serif';
 
-    // this starts the game when you click on the canvas
     if (!this.started) {
-      this.ctx.fillText("click to start", 150, 300, 200);
+      this.ctx.fillText('Click to start', 150, 300, 200);
     }
 
     this.raf = window.requestAnimationFrame(this.draw.bind(this));
     this.ctx.fillText(this.score.toString(), 40, 40, 200);
-    this.ctx.fillText("Time remaining: " + this.timeLeft, 300, 40, 200);
+    this.ctx.fillText('Time remaining: ' + this.timeLeft, 300, 40, 200);
+
     if (this.score <= -25) {
       this.ball.x = 100;
       this.ball.y = 100;
       this.score = this.highScore;
     }
+
+    if (this.timeLeft <= 0) {
+      this.timeLeft = 0;
+      this.pause = true;
+      if (this.name !== '') {
+        await addDoc(this.highScoresCollection, {
+          name: this.name,
+          score: this.highScore,
+          createDate: new Date()
+        });
+      }
+    }
+  }
+
+  public resetGame() {
+    this.score = 0;
+    this.timeLeft = this.originalTime;
+    this.highScore = 0;
+    this.pause = false;
+    this.started = true;
+
+    this.ball.x = 0;
+    this.ball.y = 0;
+    this.ball.vx = 4;
+    this.ball.vy = 7;
+
+    this.bouncer.x = 240;
+    this.bouncer.y = 285;
+
+    this.ctx?.clearRect(0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+    this.raf = window.requestAnimationFrame(this.draw.bind(this));
+  }
+
+  // Method to toggle fullscreen
+  public toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      this.canvas.nativeElement.requestFullscreen().catch((err) => console.error(err));
+    } else {
+      document.exitFullscreen().catch((err) => console.error(err));
+    }
   }
 }
 
 function compare(a: any, b: any) {
-  // Handle cases where score is missing or undefined
   const scoreA = a.score ?? -Infinity;
   const scoreB = b.score ?? -Infinity;
 
   if (scoreA < scoreB) return 1;
   if (scoreA > scoreB) return -1;
 
-  // Secondary sort by createDate (if scores are equal)
   if (a.createDate && b.createDate) {
     if (a.createDate.seconds < b.createDate.seconds) return 1;
     if (a.createDate.seconds > b.createDate.seconds) return -1;
 
-    // Further sort by nanoseconds if seconds are also the same
     if (a.createDate.nanoseconds < b.createDate.nanoseconds) return 1;
     if (a.createDate.nanoseconds > b.createDate.nanoseconds) return -1;
   }
 
-  // If both score and createDate are identical, consider them equal
   return 0;
 }
