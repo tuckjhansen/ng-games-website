@@ -1,20 +1,22 @@
-a.current-page {
-    border-style: solid;
-    color: orange;
+.line-break a {
+    display: inline-block;
+    margin: 0 15px;
+    color: #333;
+    text-decoration: none;
     font-size: 20px;
-    padding: 5px;
-    background-color: navy;
-    margin-bottom: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
-
-a:not(.current-page) {
-    border-style: solid;
-    color: black;
-    font-size: 20px;
-    padding: 5px;
-    margin-bottom: 15px;
-    margin-left: 5px;
-    margin-right: 5px;
-}
+    font-weight: 500;
+  }
+  
+  .line-break a:hover {
+    text-decoration: underline;
+  }
+  
+  a.current-page,
+  a.current-page:visited,
+  a.current-page:hover,
+  a.current-page:active {
+    background-color: #333;
+    color: #fff; /* Ensure contrast */
+    border-radius: 4px;
+    padding: 5px 10px;
+  }

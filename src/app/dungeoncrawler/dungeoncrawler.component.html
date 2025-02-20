@@ -1,2 +1,16 @@
-<h1>Dungeon Crawler</h1>
-<p>Dungeon Crawler is currently in the development/designing phase. But it will be a 2D sidescroller dungeon exploring game</p>
+<h1>Flowrate</h1>
+<p>A procedurally generated two dimensional planet exploration game with a fuel timer and collection mechanic</p>
+
+<div class="gallery">
+  <figure *ngFor="let item of images">
+    <img [src]="item.src" [alt]="item.alt" (click)="openModal(item)">
+    <figcaption>{{ item.caption }}</figcaption>
+  </figure>
+</div>
+
+<!-- Modal -->
+<div id="modal" *ngIf="showModal" (click)="closeModal()">
+  <span id="closeBtn" (click)="closeModal()">&times;</span>
+  <img [src]="selectedImage?.src" [alt]="selectedImage?.alt" id="modalImage">
+  <div id="modalCaption">{{ selectedImage?.alt }}</div>
+</div>

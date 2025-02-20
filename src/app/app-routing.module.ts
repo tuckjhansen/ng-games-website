@@ -84,7 +84,7 @@ const routes: Routes = [
                 component: LastdysonComponent
             },
             {
-                path: 'dungeoncrawler',
+                path: 'flowrate',
                 component: DungeoncrawlerComponent
             }
         ]
