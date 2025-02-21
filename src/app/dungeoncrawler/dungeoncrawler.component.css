@@ -32,4 +32,13 @@ p {
     color: #fff;
   }
 
+  .announcement {
+    background: linear-gradient(90deg, #ff7e5f, #feb47b);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 1.5em;
+    border-radius: 8px;
+    margin: 20px;
+  }
   

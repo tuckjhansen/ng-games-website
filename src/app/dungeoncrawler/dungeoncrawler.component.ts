@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-dungeoncrawler',
   templateUrl: './dungeoncrawler.component.html',
-  styleUrls: ['./dungeoncrawler.component.css']
+  styleUrls: ['./dungeoncrawler.component.css'],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('1s ease-out', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class DungeoncrawlerComponent implements OnInit {
 
