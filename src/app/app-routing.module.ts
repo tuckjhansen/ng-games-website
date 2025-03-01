@@ -14,7 +14,7 @@ import { UnityhomeComponent } from "./unity/unityhome/unityhome.component";
 import { SlimemageComponent } from "./slimemage/slimemage.component";
 import { UnitySpacePirateHuntersComponent } from "./unity-space-pirate-hunters/unity-space-pirate-hunters.component";   
 import { GametestComponent } from "./gametest/gametest.component";
-import { DungeoncrawlerComponent } from "./dungeoncrawler/dungeoncrawler.component";
+import { FlowrateComponent } from "./flowrate/flowrate.component";
 import { LastdysonComponent } from "./lastdyson/lastdyson.component";
 
 const routes: Routes = [
@@ -85,7 +85,7 @@ const routes: Routes = [
             },
             {
                 path: 'flowrate',
-                component: DungeoncrawlerComponent
+                component: FlowrateComponent
             }
         ]
     },

@@ -1,0 +1,28 @@
+<h1>Flowrate</h1>
+<p>A procedurally generated two-dimensional planet exploration game with a fuel timer and collection mechanic.</p>
+
+<!-- Game Links Section -->
+<div class="game-links">
+  <p>Play the game:</p>
+  <a [href]="flowrateUrl" target="_blank" class="play-button">Play on My Website</a>
+  <a href="https://arekcuta.itch.io/flowrate" target="_blank" class="play-button">Play on Itch.io</a>
+</div>
+
+<div class="line-break"></div>
+
+<p>Screenshots of the game</p>
+
+<!-- Image Gallery -->
+<div class="gallery">
+  <figure *ngFor="let item of images">
+    <img [src]="item.src" [alt]="item.alt" (click)="openModal(item)">
+    <figcaption>{{ item.caption }}</figcaption>
+  </figure>
+</div>
+
+<!-- Modal -->
+<div id="modal" *ngIf="showModal" (click)="closeModal()">
+  <span id="closeBtn" (click)="closeModal()">&times;</span>
+  <img [src]="selectedImage?.src" [alt]="selectedImage?.alt" id="modalImage">
+  <div id="modalCaption">{{ selectedImage?.alt }}</div>
+</div>

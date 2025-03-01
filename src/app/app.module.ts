@@ -21,7 +21,7 @@ import { UnityhomeComponent } from './unity/unityhome/unityhome.component';
 import { SlimemageComponent } from './slimemage/slimemage.component';
 import { UnitySpacePirateHuntersComponent } from './unity-space-pirate-hunters/unity-space-pirate-hunters.component';
 import { GametestComponent } from './gametest/gametest.component';
-import { DungeoncrawlerComponent } from './dungeoncrawler/dungeoncrawler.component';
+import { FlowrateComponent } from './flowrate/flowrate.component';
 import { LastdysonComponent } from './lastdyson/lastdyson.component';
 
 const firebaseConfig = {
@@ -51,7 +51,7 @@ const firebaseConfig = {
     SlimemageComponent,
     UnitySpacePirateHuntersComponent,
     GametestComponent,
-    DungeoncrawlerComponent,
+    FlowrateComponent,
     LastdysonComponent
   ],
   imports: [
